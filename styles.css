@@ -1,0 +1,45 @@
+/*  GENERAL */
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: #f1f1f1;
+  box-sizing: border-box;
+}
+
+/* NAVIGATION */
+.navbar-brand {
+  font-size: 35px;
+  font-family: "Kaushan Script", cursive;
+}
+#navbarCollapse a {
+  font-size: 20px;
+}
+#main-footer {
+  font-size: 20px;
+}
+
+h1 {
+  font-family: "Montserrat", sans-serif;
+}
+a {
+  color: #f1f1f1;
+  font-size: 20px;
+}
+a:hover {
+  text-decoration: none;
+  color: #f1f1f1;
+}
+.btn-prod {
+  height: 50px;
+  margin-top: 13px;
+  line-height: 0.9;
+  margin-left: 5px;
+}
+.card {
+  border-radius: 20px;
+}
+.card-img-top {
+  border-radius: 20px;
+}
