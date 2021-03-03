@@ -7,27 +7,24 @@ function fetchData() {
 function renderAllCameras(data) {
   for (const camera of data) {
     if ("content" in document.createElement("template")) {
+      //On pointe #product-list
       const main = document.querySelector("#product-list");
       // On prépare une ligne pour le tableau
       let template = document.querySelector("#product");
-
+      // On assigne les selections
       let clone = document.importNode(template.content, true);
-      //let price = clone.querySelector(".card-header");
       let img = clone.querySelector("img");
       let name = clone.querySelector("p");
-      //let desc = clone.querySelector("p");
       let button = clone.querySelector("a");
-
+      // On indique les routes
       img.src = camera.imageUrl;
-      button.href = "product.html?id=" + camera._id;
-      //price.innerHTML = camera.price + " €";
+      button.href = "pages/product.html?id=" + camera._id;
       name.innerHTML = camera.name;
-      //desc.innerHTML = camera.description;
-
+      // On ajoute toutes les datas à "main"
       main.appendChild(clone);
     }
   }
 }
 
-//Call the function that will automatically run renderAllCameras() also
+//Appel de la fonction
 fetchData();
