@@ -62,7 +62,7 @@
                 <a href="confirm.html" class="nav-link">Mes commandes</a>
               </li>
               <li class="nav-item mr-1">
-                <a href="panier.html" class="nav-link">Mon Panier</a>
+                <a href="cart.html" class="nav-link">Mon Panier</a>
               </li>
             </ul>
           </div>
@@ -81,89 +81,71 @@
       <div class="container my-3" id="panierContainer">
         <div class="row">
           <div class="col-12 col-lg-6 shadow">
-            <div class="form-group">
-              <label for="recap">Récapitulatif</label>
-              <select class="form-control" id="recap">
-                <option>
-                  <img
-                    id="camImg"
-                    class="rounded"
-                    src="http://localhost:3000/images/vcam_1.jpg"
-                    alt="Appareil photo Zurss 50S"
-                    width="120px"
-                    height="75px"
-                  />
-                  <p
-                    id="camName"
-                    class="mt-4 d-none d-sm-block font-weight-bold"
-                  >
-                    Zurss 50S
-                  </p>
-                  <p
-                    id="camPrice"
-                    class="mt-4 d-none d-sm-block font-weight-bold"
-                  >
-                    6546546 €
-                  </p>
-                </option>
-                <option>2</option>
-              </select>
-            </div>
+            <table class="table table-striped table-sm">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Price</th>
+                  <th>Type of lense</th>
+                </tr>
+              </thead>
+            </table>
+            <h5 class="ml-2 mt-2 font-weight-bold">TOTAL</h5>
           </div>
-
           <div class="col-12 col-lg-6 shadow">
             <h2 class="ml-2 mt-2 font-weight-bold">Formulaire</h2>
             <form>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="inputEmail4">Prénom</label>
+                  <label for="firstName">Prénom</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="inputEmail4"
+                    id="firstName"
                     placeholder="Votre prénom"
                   />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputPassword4">Nom</label>
+                  <label for="lastName">Nom</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="inputPassword4"
+                    id="lastName"
                     placeholder="Votre nom"
                   />
                 </div>
               </div>
               <div class="form-group">
-                <label for="inputAddress">Email</label>
+                <label for="email">Email</label>
                 <input
                   type="email"
                   class="form-control"
-                  id="inputAddress"
+                  id="email"
                   placeholder="exemple@exemple.com"
                 />
               </div>
               <div class="form-group">
-                <label for="inputAddress">Addresse</label>
+                <label for="address">Addresse</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="inputAddress"
+                  id="address"
                   placeholder="1234 rue de la Paix"
                 />
               </div>
               <div class="form-row">
                 <div class="form-group col-md-2">
-                  <label for="inputZip">CP</label>
-                  <input type="text" class="form-control" id="inputZip" />
+                  <label for="zip">CP</label>
+                  <input type="text" class="form-control" id="zip" />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputCity">Ville</label>
-                  <input type="text" class="form-control" id="inputCity" />
+                  <label for="city">Ville</label>
+                  <input type="text" class="form-control" id="city" />
                 </div>
                 <div class="form-group col-md-4">
-                  <label for="inputState">Canton</label>
-                  <select id="inputState" class="form-control">
+                  <label for="canton">Canton</label>
+                  <select id="canton" class="form-control">
                     <option selected>Choix...</option>
                     <option>...</option>
                   </select>
@@ -210,6 +192,6 @@
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
       crossorigin="anonymous"
     ></script>
-    <script src="../js/panier.js"></script>
+    <script src="../js/cart.js"></script>
   </body>
 </html>

@@ -1,5 +1,8 @@
+//On récupère la chaîne de requête à partir de l'URL
 const queryString = window.location.search;
+//On extrait toute const spécifique
 const urlParams = new URLSearchParams(queryString);
+//on récupère les id
 const id = urlParams.get("id");
 
 fetchData(id);
@@ -39,4 +42,24 @@ function chosenCamera(camera) {
     addToCart();
   });
 }
-function addToCart() {}
+
+function addToCart() {
+  let add = false;
+  let choiceOfLens = document.querySelector("select");
+  let cameras = [];
+  let storage = JSON.parse(localStorage.getItem("cameras"));
+
+  if (storage) {
+    for (let i = 0; i < storage.length; i++) {
+      if (storage[i]["id"] == id && storage[i]["lense"] == choiceOfLens.value) {
+        add = true;
+      }
+    }
+    if (add == false) storage.push({ id: id, lense: choiceOfLens.value });
+    cameras = storage;
+    add = false;
+  } else {
+    cameras.push({ id: id, lense: choiceOfLens.value });
+  }
+  localStorage.setItem("cameras", JSON.stringify(cameras));
+}
