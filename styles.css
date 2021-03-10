@@ -43,3 +43,7 @@ a:hover {
 .card-img-top {
   border-radius: 20px;
 }
+img.index {
+  width: 120px;
+  height: 75px;
+}

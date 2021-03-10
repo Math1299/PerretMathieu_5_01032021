@@ -14,7 +14,7 @@ function fetchData(id) {
     .then((response) => response.json())
     .then((data) => intoCart(data));
 }
-// Remplissage du panier avec les données récupérées
+//---------------------- Remplissage du panier avec les données récupérées
 
 let nb = 0;
 let totalPrice = 0;
@@ -50,7 +50,7 @@ function intoCart(camera) {
 //-----------------------------------Vider le panier--------------------------------
 
 //Création du bouton a envoyer dans le HTML
-const btnEmptyCart = `<button type="reset"class="btn btn-danger btn-block"id="btnEmptyCart">Vider la panier</button>`;
+const btnEmptyCart = `<button type="reset"class="btn btn-danger btn-block"id="btnEmptyCart">Vider le panier</button>`;
 
 //Insertion du bouton dans le HTML
 panierContainerRecap.insertAdjacentHTML("beforeend", btnEmptyCart);
@@ -71,3 +71,24 @@ del.addEventListener("click", (e) => {
 });
 
 //-------------------------FORMULAIRE-----------------------------------
+
+//On selectionne le btn valider
+const sendForm = document.querySelector("#sendForm");
+// console.log(sendForm);
+
+sendForm.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  //Récupération des data du formulaire
+  const dataSent = {
+    firstName: document.querySelector("#firstName").value,
+    lastName: document.querySelector("#lastName").value,
+    email: document.querySelector("#email").value,
+    zip: document.querySelector("#zip").value,
+    address: document.querySelector("#address").value,
+    city: document.querySelector("#city").value,
+    canton: document.querySelector("#canton").value,
+  };
+  //On met cet objet dans le localStorage
+  localStorage.setItem("dataSent", JSON.stringify(dataSent));
+});

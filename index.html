@@ -28,7 +28,8 @@
     <title>Orinoco</title>
   </head>
   <body>
-    <!-- NAVIGATION -->
+    <!--------------------------------------------- NAVIGATION --------------------------------------------->
+
     <div class="container">
       <div class="row">
         <nav
@@ -60,7 +61,10 @@
                 >
               </li>
               <li class="nav-item mr-1">
-                <a href="./pages/cart.html" class="nav-link">Mon Panier</a>
+                <a href="./pages/cart.html" class="nav-link">
+                  <i class="fas fa-cart-arrow-down"></i>
+                  Panier</a
+                >
               </li>
             </ul>
           </div>
@@ -68,7 +72,8 @@
       </div>
     </div>
     <main class="container" #mainContainer>
-      <!-- SECTION CENTRALE -->
+      <!--------------------------------------------- SECTION CENTRALE --------------------------------------------->
+
       <div class="container" id="titleMainContainer">
         <div class="row">
           <div class="col">
@@ -80,45 +85,14 @@
       <div class="container mt-4" id="listContainer">
         <div id="product-list" class="row">
           <div class="col">
-            <!--mécanisme utilisé pour stocker du contenu HTML (côté client) qui 
-              ne doit pas être affiché lors du chargement de la page mais qui peut 
-              être instancié et affiché par la suite grâce à un script JavaScript. -->
-            <template id="product">
-              <ul class="list-group shadow w-100 mb-2">
-                <li class="list-group-item d-flex justify-content-around px-5">
-                  <!-- iMAGE -->
-                  <img
-                    id="camImg"
-                    class="rounded"
-                    alt="appareil photo"
-                    width="120px"
-                    height="75px"
-                  />
-                  <!-- NAME -->
-                  <p
-                    id="camName"
-                    class="mt-4 d-none d-sm-block font-weight-bold"
-                  >
-                    Référence de l'appareil photo
-                  </p>
-                  <!-- BUTTON -->
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary btn-prod"
-                  >
-                    <a class="text-dark" href="./pages/produits.html">
-                      Voir le produit</a
-                    >
-                  </button>
-                </li>
-              </ul>
-            </template>
+            <div id="product"></div>
           </div>
         </div>
       </div>
     </main>
 
-    <!-- FOOTER -->
+    <!--------------------------------------------- FOOTER --------------------------------------------->
+
     <div class="container bg-secondary text-center text-white p-3 mt-5">
       <div class="row">
         <footer class="col">

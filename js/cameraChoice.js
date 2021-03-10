@@ -59,11 +59,13 @@ function addToCart() {
       //Itération des options possibles
       if (storage[i]["id"] == id && storage[i]["lens"] == choiceOfLens.value) {
         inCart = true;
+        alert("Déjà dans le panier");
       }
     }
     if (inCart == false) storage.push({ id: id, lens: choiceOfLens.value });
     cameras = storage;
     inCart = false;
+    alert("Ajouté au panier");
   } else {
     cameras.push({ id: id, lens: choiceOfLens.value });
   }
