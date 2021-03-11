@@ -32,7 +32,7 @@
     <title>Orinoco</title>
   </head>
   <body>
-    <!-- NAVIGATION -->
+    <!--------------------------------- NAVIGATION --------------------------------->
     <div class="container">
       <div class="row">
         <nav
@@ -72,39 +72,50 @@
         </nav>
       </div>
     </div>
-    <!--------------------------------------------- SECTION CENTRALE --------------------------------------------->
     <main class="container">
+      <!--------------------------------------------- SECTION CENTRALE --------------------------------------------->
       <div class="container" id="titleMainContainer">
         <div class="row">
           <div class="col">
-            <h1 class="text-center mt-3 font-weight-bold">Votre produit</h1>
+            <h1 class="text-center mt-5 font-weight-bold">Votre produit</h1>
           </div>
         </div>
       </div>
       <div class="container mb-5" id="prodContainer">
         <div class="row">
           <div class="col-12 col-md-7 mx-auto">
-            <div class="card text-center shadow" id="cameraChoice"></div>
-            <div class="card text-center shadow py-2" id="lensOption">
-              <!------------------ camOption ------------------>
-              <label for="lens" class="lentilles">Choix de l'objectif:</label>
-              <select
-                name="lens"
-                id="option"
-                class="form-control w-50 mx-auto mb-4"
-              ></select>
-              <!------------------ btn ------------------>
-              <a
-                href="cart.html"
-                class="btn btn-outline-primary w-25 mx-auto"
-                id="panier"
-                >Ajouter au panier</a
-              >
+            <div class="card text-center shadow" id="cameraChoice">
+              <!-- IMAGE -->
+              <img
+                alt="L'appareil photo selectionné"
+                class="card-img-top rounded w-75 mx-auto mt-5"
+                id="camImg"
+              />
+              <div class="card-body">
+                <!-- TITLE -->
+                <h2 class="card-title" id="camName"></h2>
+                <!-- PRICE -->
+                <h3 class="card-subtitle" id="camPrice"></h3>
+                <!-- LOREM -->
+                <p class="card-text text-justify" id="camDescription"></p>
+                <label for="lens" class="lentilles">Choix de l'objectif:</label>
+                <!-- camOption -->
+                <select
+                  name="lens"
+                  id="option"
+                  class="form-control w-50 mx-auto mb-4"
+                ></select>
+                <!-- btn -->
+                <a href="cart.html" class="btn btn-outline-primary" id="panier"
+                  >Ajouter au panier</a
+                >
+              </div>
             </div>
           </div>
         </div>
       </div>
     </main>
+
     <!--------------------------------------------- FOOTER --------------------------------------------->
     <div class="container bg-secondary text-center text-white p-3 mt-5">
       <div class="row">

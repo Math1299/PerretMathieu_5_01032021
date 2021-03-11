@@ -5,7 +5,7 @@ let template = document.querySelector("#product");
 fetch("http://localhost:3000/api/cameras")
   .then((response) => response.json())
   .then((cameras) => {
-    //Boucle for pour récupérer les cameras
+    //Boucle for pour récupérer toutes les cameras
     for (let index = 0; index < cameras.length; index++) {
       //Création de la structure
       let ul = document.createElement("ul");
@@ -21,13 +21,13 @@ fetch("http://localhost:3000/api/cameras")
       );
       ul.appendChild(li);
 
-      //Ajout de l'image
+      //Ajout camImg
       let camImg = document.createElement("img");
       camImg.classList.add("rounded", "index");
       camImg.setAttribute("src", cameras[index].imageUrl);
       li.appendChild(camImg);
 
-      //Ajout du name
+      //Ajout camName
       let camName = document.createElement("p");
       camName.classList.add("mt-4", "d-none", "d-sm-block", "font-weight-bold");
       camName.innerHTML = cameras[index].name;

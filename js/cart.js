@@ -1,5 +1,5 @@
 //Récupération du localStorage en format JSON vers du JS
-const cartItems = JSON.parse(localStorage.getItem("cameras"));
+const cartItems = JSON.parse(localStorage.getItem("cameras")); //.parse de Json vers obj JS
 // console.log(cartItems);
 
 //Ajout des données du localStorage tant qu'il y en a
@@ -32,22 +32,26 @@ function intoCart(camera) {
   th.innerHTML = nb;
   name.innerHTML = camera.name;
   price.innerHTML = `${camera.price / 100} CHF`;
-  lens.innerHTML = cartItems[nb - 1]["lens"];
+  lens.innerHTML = cartItems[nb - 1]["lens"]; //index [] commence à 0
 
   table.appendChild(newLine);
 
   totalPrice += camera.price;
   document.querySelector("h5").innerText = `TOTAL : ${totalPrice / 100} CHF`;
-  // console.log(table);
-  // console.log(tr);
-  // console.log(th);
-  // console.log(name);
-  // console.log(price);
-  // console.log(lens);
-  // console.log(supp);
+  // console.log(table); // console.log(tr);
+  // console.log(th);// console.log(name);// console.log(price);
+  // console.log(lens); // console.log(supp);
 }
 
 //-----------------------------------Vider le panier--------------------------------
+//Ajout du btn vider le panier
+// let contBtn = document.querySelector(".panierContainerBtEmptyCart");
+// let btnEmptyCart = document.createElement("button");
+// btnEmptyCart.classList.add("btn", "btn-danger", "btn-block");
+// btnEmptyCart.setAttribute("type", "reset");
+// btnEmptyCart.setAttribute("id", "btnEmptyCart");
+// btnEmptyCart.innerHTML = "Vider le panier";
+// contBtn.appendChild(btnEmptyCart);
 
 //Création du bouton a envoyer dans le HTML
 const btnEmptyCart = `<button type="reset"class="btn btn-danger btn-block"id="btnEmptyCart">Vider le panier</button>`;
@@ -74,7 +78,7 @@ del.addEventListener("click", (e) => {
 
 //On selectionne le btn valider
 const sendForm = document.querySelector("#sendForm");
-// console.log(sendForm);
+console.log(sendForm);
 
 sendForm.addEventListener("click", (e) => {
   e.preventDefault();
@@ -91,4 +95,5 @@ sendForm.addEventListener("click", (e) => {
   };
   //On met cet objet dans le localStorage
   localStorage.setItem("dataSent", JSON.stringify(dataSent));
+  //stringify obj JS vers le format Json
 });
