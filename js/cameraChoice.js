@@ -1,80 +1,118 @@
+//Initialisation
+let cameraChoice = document.querySelector("#cameraChoice");
+let choice = document.querySelector("#choice");
+let option = document.querySelector("#option");
+
+//Récupération de l'ID
+
 const queryString = window.location.search; //On récupère la chaîne de requête à partir de l'URL
 const urlParams = new URLSearchParams(queryString); //On extrait toute const spécifique
 const id = urlParams.get("id"); //on récupère les id
 
-function fetchData(id) {
-  fetch("http://localhost:3000/api/cameras/" + id)
-    .then((response) => response.json())
-    .then((data) => chosenCamera(data));
-}
+fetch("http://localhost:3000/api/cameras/" + id)
+  .then((response) => response.json())
+  .then((camera) => {
+    //Insertion de camImg
+    let camImg = document.createElement("img");
+    camImg.classList.add("card-img-top", "rounded", "w-75", "mx-auto", "mt-5");
+    camImg.setAttribute("src", camera.imageUrl);
+    cameraChoice.appendChild(camImg);
 
-//Fonction pour le remplissage des champs en fonction de l'appareil selectionné
+    //Création de la div
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body");
+    cameraChoice.appendChild(cardBody);
 
-function chosenCamera(camera) {
-  //Récupération et attribution des datas
-  document.querySelector(".card-img-top").src = camera.imageUrl;
-  document.querySelector(".card-title").innerHTML = camera.name;
-  document.querySelector(".card-subtitle").innerHTML = `${
-    camera.price / 100
-  } CHF`;
-  document.querySelector(".card-text").innerHTML = camera.description;
+    //Ajout de camName
+    let camName = document.createElement("h2");
+    camName.classList.add("card-title");
+    camName.innerHTML = camera.name;
+    cardBody.appendChild(camName);
 
-  //Boucle for pour les différentes options de lens en fonction de l'appareil
+    //Ajout de camPrice
+    let camPrice = document.createElement("h4");
+    camPrice.classList.add("card-subtitle", "my-1");
+    camPrice.innerHTML = `${camera.price / 100} CHF`;
+    camName.appendChild(camPrice);
 
-  for (let i = 0; i < camera.lenses.length; i++) {
-    camOption(camera.lenses[i]);
-  }
+    //Ajout de camDesctiption
+    let camDescription = document.createElement("p");
+    camDescription.classList.add(
+      "card-text",
+      "text-justify",
+      "font-weight-light",
+      "w-75",
+      "mx-auto",
+      "my-2"
+    );
+    camDescription.innerHTML = camera.description;
+    camPrice.appendChild(camDescription);
 
-  //Fonction camOption pour les différentes options de lens selon l'appareil choisi
+    //Ajout de label
+    let label = document.createElement("label");
+    label.setAttribute("for", "lens");
+    label.innerHTML = "Choix de l'objectif :";
+    choice.appendChild(label);
 
-  function camOption(lens) {
-    let choiceOfLens = document.querySelector("select"); //On vise "select"
-    const option = document.createElement("option"); //On crée "option" et le texte à joindre
-    const optionTxt = document.createTextNode(lens); // On crée les textNode pour les différentes options
-    option.appendChild(optionTxt); //optionTxt est un enfant de option
-    option.setAttribute("value", lens); //on recupère/ajoute les valeurs
-    choiceOfLens.appendChild(option); // Option est un enfant de choiceOfLens
-  }
+    //Ajout de camOption
+    let camOption = document.createElement("select");
+    camOption.classList.add("form-control", "w-50", "mx-auto", "my-2");
+    camOption.setAttribute("name", "lens");
+    camOption.setAttribute("id", "option");
+    label.appendChild(camOption);
 
-  //A l'écoute du click sur le bouton ajouter au panier pour les comptabiliser
+    //Ajout de lensOption
+    let lensOption = document.createElement("option");
+    // lensOption.setAttribute("disabled", "disabled");
+    lensOption.setAttribute("selected", "true");
+    // lensOption.setAttribute("value", [camera.lenses.length]);
+    lensOption.textContent = "Veuillez selectionner un objectif";
+    camOption.appendChild(lensOption);
 
-  document.querySelector(".btn").addEventListener("click", function () {
-    addToCart();
-  });
-}
-
-//La fonction addToCArt
-
-function addToCart() {
-  let inCart = false; //De base le panier vide
-  let choiceOfLens = document.querySelector("select"); //On vise la selection
-  let cameras = []; //Le tableau vide qui récupérer les données
-  let storage = JSON.parse(localStorage.getItem("cameras")); //Conversion json vers Obj JS
-
-  //Conditions pour le stockage
-  if (storage) {
-    check();
-    if (inCart == false) storage.push({ id: id, lens: choiceOfLens.value });
-    cameras = storage;
-    inCart = false;
-    alert("Ajouté au panier");
-  } else {
-    cameras.push({ id: id, lens: choiceOfLens.value });
-  }
-  localStorage.setItem("cameras", JSON.stringify(cameras));
-
-  function check() {
-    for (let i = 0; i < storage.length; i++) {
-      //Itération des options possibles
-      if (
-        storage[i]["id"] === id &&
-        storage[i]["lens"] === choiceOfLens.value
-      ) {
-        inCart = true;
-        alert("Déjà dans le panier");
-      }
+    //Boucle for pour récupérer les options
+    for (let i = 0; i < camera.lenses.length; i++) {
+      let camLens = document.createElement("option");
+      camOption.classList.add("choice");
+      camOption.appendChild(camLens);
+      // camLens.setAttribute("value", "camOption");
+      camLens.textContent = camera.lenses[i];
     }
-  }
-}
 
-fetchData(id);
+    //Ajout du btn ajouter au panier
+    let btnAddToCart = document.createElement("a");
+    btnAddToCart.classList.add(
+      "btn",
+      "btn-outline-primary",
+      "w-25",
+      "mx-auto",
+      "mb-2"
+    );
+    // btnAddToCart.setAttribute("href", "cart.html");
+    btnAddToCart.setAttribute("id", "panier");
+    btnAddToCart.innerHTML = "Ajouter au panier";
+    choice.appendChild(btnAddToCart);
+
+    //A l'écoute du click sur le bouton ajouter au panier pour comptabiliser
+
+    // Fonction addToCart
+    btnAddToCart.onclick = function () {
+      let select = document.querySelector("select");
+      let lensChoice = select.value;
+      if (lensChoice === lensOption.textContent) {
+        alert("Vous devez choisir un objectif !");
+      } else {
+        let intoCart = {
+          id: camera._id,
+          name: camera.name,
+          price: camera.price / 100,
+          description: camera.description,
+          imageUrl: camera.imageUrl,
+          lens: lensChoice,
+        };
+        let camToCart = JSON.stringify(intoCart); //stringify obj JS vers le format Json
+        localStorage.setItem(camera._id, camToCart);
+        alert("Ajouté au panier");
+      }
+    };
+  })
+  .catch((error) => console.log(error));

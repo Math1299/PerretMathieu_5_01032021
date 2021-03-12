@@ -1,26 +1,19 @@
-//Récupération du localStorage en format JSON vers du JS
-const cartItems = JSON.parse(localStorage.getItem("cameras")); //.parse de Json vers obj JS
-// console.log(cartItems);
+//Tableau vide afin de récupérer les données
+let pdId = [];
 
-//Ajout des données du localStorage tant qu'il y en a
-if (cartItems) {
-  for (let i = 0; i < cartItems.length; i++) {
-    fetchData(cartItems[i]["id"]);
-  }
-}
+//Compteur du nombre de produits dans la panier
+let nb = 1;
 
-function fetchData(id) {
-  fetch("http://localhost:3000/api/cameras/" + id)
-    .then((response) => response.json())
-    .then((data) => intoCart(data));
-}
-//---------------------- Remplissage du panier avec les données récupérées
-
-let nb = 0;
+//Variable totalPrice
 let totalPrice = 0;
 
-function intoCart(camera) {
-  nb = nb + 1;
+// Récupération du localStorage en format JSON
+let camToCart = Object.keys(localStorage);
+
+for (let j = 0; j < camToCart.length; j++) {
+  let camera = JSON.parse(localStorage.getItem(camToCart[j]));
+
+  //Création et ajout des nouvelles lignes du tableau
   let table = document.querySelector("table");
   let newLine = document.createElement("tbody");
   let tr = newLine.appendChild(document.createElement("tr"));
@@ -29,71 +22,67 @@ function intoCart(camera) {
   let price = tr.appendChild(document.createElement("td"));
   let lens = tr.appendChild(document.createElement("td"));
 
-  th.innerHTML = nb;
+  th.innerHTML = nb++;
   name.innerHTML = camera.name;
-  price.innerHTML = `${camera.price / 100} CHF`;
-  lens.innerHTML = cartItems[nb - 1]["lens"]; //index [] commence à 0
+  price.innerHTML = camera.price;
+  lens.innerHTML = camera.lens;
 
   table.appendChild(newLine);
 
   totalPrice += camera.price;
-  document.querySelector("h5").innerText = `TOTAL : ${totalPrice / 100} CHF`;
-  // console.log(table); // console.log(tr);
-  // console.log(th);// console.log(name);// console.log(price);
-  // console.log(lens); // console.log(supp);
+
+  document.querySelector("h5").innerText = `TOTAL : ${totalPrice} CHF`;
+
+  //Push Id de camera dans le tableau pdID
+  pdId.push(camera.id);
+  // console.log(typeof camera.price);
+  // console.log(typeof camera.name);
+  // console.log(typeof camera.lens);
 }
 
-//-----------------------------------Vider le panier--------------------------------
-//Ajout du btn vider le panier
-// let contBtn = document.querySelector(".panierContainerBtEmptyCart");
-// let btnEmptyCart = document.createElement("button");
-// btnEmptyCart.classList.add("btn", "btn-danger", "btn-block");
-// btnEmptyCart.setAttribute("type", "reset");
-// btnEmptyCart.setAttribute("id", "btnEmptyCart");
-// btnEmptyCart.innerHTML = "Vider le panier";
-// contBtn.appendChild(btnEmptyCart);
+// -----------------------------------Vider le panier--------------------------------
 
-//Création du bouton a envoyer dans le HTML
+// Création du bouton a envoyer dans le HTML
 const btnEmptyCart = `<button type="reset"class="btn btn-danger btn-block"id="btnEmptyCart">Vider le panier</button>`;
 
-//Insertion du bouton dans le HTML
+// Insertion du bouton dans le HTML
 panierContainerRecap.insertAdjacentHTML("beforeend", btnEmptyCart);
 
 const del = document.querySelector("#btnEmptyCart");
 // console.log(del);
 
-//Suppression de la key 'cameras' du localStorage pour vider le panier
+// Suppression key du localStorage pour vider le panier
 
 del.addEventListener("click", (e) => {
   e.preventDefault;
 
-  localStorage.removeItem("cameras");
-
+  localStorage.clear();
   alert("Le panier va être vidé");
 
   document.location.reload();
 });
+console.log(camToCart);
 
-//-------------------------FORMULAIRE-----------------------------------
+// -------------------------FORMULAIRE-----------------------------------
 
-//On selectionne le btn valider
-const sendForm = document.querySelector("#sendForm");
-console.log(sendForm);
+// On selectionne le btn valider
+// const sendForm = document.querySelector("#sendForm");
+// console.log(sendForm);
 
-sendForm.addEventListener("click", (e) => {
-  e.preventDefault();
+// sendForm.addEventListener("click", (e) => {
+//   e.preventDefault();
 
-  //Récupération des data du formulaire
-  const dataSent = {
-    firstName: document.querySelector("#firstName").value,
-    lastName: document.querySelector("#lastName").value,
-    email: document.querySelector("#email").value,
-    zip: document.querySelector("#zip").value,
-    address: document.querySelector("#address").value,
-    city: document.querySelector("#city").value,
-    canton: document.querySelector("#canton").value,
-  };
-  //On met cet objet dans le localStorage
-  localStorage.setItem("dataSent", JSON.stringify(dataSent));
-  //stringify obj JS vers le format Json
-});
+//   Récupération des data du formulaire
+//   const dataSent = {
+//     firstName: document.querySelector("#firstName").value,
+//     lastName: document.querySelector("#lastName").value,
+//     email: document.querySelector("#email").value,
+//     zip: document.querySelector("#zip").value,
+//     address: document.querySelector("#address").value,
+//     city: document.querySelector("#city").value,
+//     canton: document.querySelector("#canton").value,
+//   };
+//   On met cet objet dans le localStorage
+//   localStorage.setItem("dataSent", JSON.stringify(dataSent));
+//   stringify obj JS vers le format Json
+// });
