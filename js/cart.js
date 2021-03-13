@@ -65,24 +65,102 @@ console.log(camToCart);
 
 // -------------------------FORMULAIRE-----------------------------------
 
-// On selectionne le btn valider
-// const sendForm = document.querySelector("#sendForm");
-// console.log(sendForm);
+//On crée la Class client
+class Client {
+  constructor(firstName, lastName, email, address, city) {
+    (this.firstName = firstName),
+      (this.lastName = lastName),
+      (this.email = email),
+      (this.address = address),
+      (this.city = city);
+  }
+}
 
-// sendForm.addEventListener("click", (e) => {
-//   e.preventDefault();
+// On crée l'objet client suite au click sur valider
+const sendForm = document.querySelector("#sendForm");
+sendForm.addEventListener("click", (e) => {
+  e.preventDefault();
+  localStorage.clear();
 
-//   Récupération des data du formulaire
-//   const dataSent = {
-//     firstName: document.querySelector("#firstName").value,
-//     lastName: document.querySelector("#lastName").value,
-//     email: document.querySelector("#email").value,
-//     zip: document.querySelector("#zip").value,
-//     address: document.querySelector("#address").value,
-//     city: document.querySelector("#city").value,
-//     canton: document.querySelector("#canton").value,
-//   };
-//   On met cet objet dans le localStorage
-//   localStorage.setItem("dataSent", JSON.stringify(dataSent));
-//   stringify obj JS vers le format Json
-// });
+  //vérification de tous les champs qui sont required
+  if (
+    !document
+      .querySelector("#firstName")
+      .value.match(/^([a-zA-Zàâäéèêëïîôöùûüç' ]+)$/)
+  ) {
+    alert("Le champs prénom contient des erreurs");
+    window.location = "cart.html";
+  }
+  if (
+    !document
+      .querySelector("#lastName")
+      .value.match(/^([a-zA-Zàâäéèêëïîôöùûüç' ]+)$/)
+  ) {
+    alert("Le champs nom contient des erreurs");
+    window.location = "cart.html";
+  }
+  if (
+    !document
+      .querySelector("#address")
+      .value.match(/^([0-9]{1,3}(([,. ]?){1}[a-zA-Zàâäéèêëïîôöùûüç' ]+))$/)
+  ) {
+    alert("Le champs contient des erreurs");
+    window.location = "cart.html";
+  }
+  if (
+    !document
+      .querySelector("#city")
+      .value.match(/^([a-zA-Zàâäéèêëïîôöùûüç' ]+)$/)
+  ) {
+    alert("Le champs  ville contient des erreurs");
+    window.location = "cart.html";
+  }
+  if (
+    !document
+      .querySelector("#email")
+      .value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
+  ) {
+    alert("Le champs contient des erreurs");
+    window.location = "cart.html";
+  }
+
+  //Création du client
+  e.preventDefault();
+  let newOrder = new Client(
+    document.querySelector("#firstName").value,
+    document.querySelector("#lastName").value,
+    document.querySelector("#email").value,
+    document.querySelector("#address").value,
+    document.querySelector("#city").value
+  );
+  //Création de l'objet résultat
+  let data = {
+    contact: {
+      firstName: newOrder.firstName,
+      lastName: newOrder.lastName,
+      email: newOrder.email,
+      address: newOrder.address,
+      city: newOrder.city,
+    },
+    products: pdId,
+  };
+
+  //Appel de fecth contenant la commande
+  fetch("http://localhost:3000/api/cameras/order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+    //Réponse du serveur
+    .then((response) => response.json())
+    .then((response) => {
+      localStorage.clear();
+      let objOrder = {
+        idOrder: response.orderId,
+        price: totalPrice,
+      };
+      let order = JSON.stringify(objOrder);
+      localStorage.setItem("order", order);
+      window.location = "confirmation.html";
+    });
+});
