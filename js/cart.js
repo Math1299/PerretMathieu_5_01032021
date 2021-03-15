@@ -21,15 +21,17 @@ for (let j = 0; j < camToCart.length; j++) {
   let name = tr.appendChild(document.createElement("td"));
   let price = tr.appendChild(document.createElement("td"));
   let lens = tr.appendChild(document.createElement("td"));
+  let qty = tr.appendChild(document.createElement("td"));
 
   th.innerHTML = nb++;
   name.innerHTML = camera.name;
   price.innerHTML = camera.price;
   lens.innerHTML = camera.lens;
+  qty.innerHTML = camera.qty;
 
   table.appendChild(newLine);
 
-  totalPrice += camera.price;
+  totalPrice = totalPrice + camera.price * camera.qty;
 
   document.querySelector("h5").innerText = `TOTAL : ${totalPrice} CHF`;
 
@@ -78,6 +80,18 @@ class Client {
 
 // On crée l'objet client suite au click sur valider
 const sendForm = document.querySelector("#sendForm");
+
+// firstName = document.querySelector("#firstname");
+// let firstNameRegex = /^[A-Za-z]+$/i;
+// lastName = document.querySelector("#lastname");
+// let lastNameRegex = /^[A-Za-z]+$/i;
+// email = document.querySelector("#email");
+// let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
+// address = document.querySelector("#address");
+// let addressRegex = /^[0-9]+ [a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+$/i;
+// city = document.querySelector("#city");
+// let cityRegex = /^[a-zA-Z',.\s-]+$/i;
+
 sendForm.addEventListener("click", (e) => {
   e.preventDefault();
   localStorage.clear();
@@ -104,7 +118,7 @@ sendForm.addEventListener("click", (e) => {
       .querySelector("#address")
       .value.match(/^([0-9]{1,3}(([,. ]?){1}[a-zA-Zàâäéèêëïîôöùûüç' ]+))$/)
   ) {
-    alert("Le champs contient des erreurs");
+    alert("Le champs adresse contient des erreurs");
     window.location = "cart.html";
   }
   if (
@@ -112,7 +126,7 @@ sendForm.addEventListener("click", (e) => {
       .querySelector("#city")
       .value.match(/^([a-zA-Zàâäéèêëïîôöùûüç' ]+)$/)
   ) {
-    alert("Le champs  ville contient des erreurs");
+    alert("Le champs ville contient des erreurs");
     window.location = "cart.html";
   }
   if (
@@ -120,7 +134,7 @@ sendForm.addEventListener("click", (e) => {
       .querySelector("#email")
       .value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
   ) {
-    alert("Le champs contient des erreurs");
+    alert("Le champs email contient des erreurs");
     window.location = "cart.html";
   }
 

@@ -48,6 +48,25 @@ fetch("http://localhost:3000/api/cameras/" + id)
     camDescription.innerHTML = camera.description;
     camPrice.appendChild(camDescription);
 
+    //Ajout form qty
+    let formQty = document.createElement("form");
+    formQty.classList.add("form-inline", "w-50", "mx-auto", "my-2");
+    qty.appendChild(formQty);
+
+    //Ajout de label Qty
+    let labelQty = document.createElement("label");
+    labelQty.setAttribute("for", "qty");
+    labelQty.innerHTML = "Quantité : ";
+    formQty.appendChild(labelQty);
+
+    //Ajout du 1er input Qty
+    let secondInput = document.createElement("input");
+    secondInput.classList.add("qty", "w-25", "ml-2", "text-center");
+    secondInput.setAttribute("id", "result");
+    secondInput.setAttribute("type", "number");
+    secondInput.setAttribute("value", "1");
+    labelQty.appendChild(secondInput);
+
     //Ajout de label
     let label = document.createElement("label");
     label.setAttribute("for", "lens");
@@ -65,7 +84,7 @@ fetch("http://localhost:3000/api/cameras/" + id)
     let lensOption = document.createElement("option");
     // lensOption.setAttribute("disabled", "disabled");
     lensOption.setAttribute("selected", "true");
-    // lensOption.setAttribute("value", [camera.lenses.length]);
+    lensOption.setAttribute("value", [camera.lenses]);
     lensOption.textContent = "Veuillez selectionner un objectif";
     camOption.appendChild(lensOption);
 
@@ -74,7 +93,7 @@ fetch("http://localhost:3000/api/cameras/" + id)
       let camLens = document.createElement("option");
       camOption.classList.add("choice");
       camOption.appendChild(camLens);
-      // camLens.setAttribute("value", "camOption");
+      camLens.setAttribute("value", [camera.lenses[i]]);
       camLens.textContent = camera.lenses[i];
     }
 
@@ -98,7 +117,9 @@ fetch("http://localhost:3000/api/cameras/" + id)
     btnAddToCart.onclick = function () {
       let select = document.querySelector("select");
       let lensChoice = select.value;
-      if (lensChoice === lensOption.textContent) {
+      let result = secondInput.value;
+
+      if (lensChoice === lensOption.value) {
         alert("Vous devez choisir un objectif !");
       } else {
         let intoCart = {
@@ -108,6 +129,7 @@ fetch("http://localhost:3000/api/cameras/" + id)
           description: camera.description,
           imageUrl: camera.imageUrl,
           lens: lensChoice,
+          qty: result,
         };
         let camToCart = JSON.stringify(intoCart); //stringify obj JS vers le format Json
         localStorage.setItem(camera._id, camToCart);
