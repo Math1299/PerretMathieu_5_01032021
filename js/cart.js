@@ -78,65 +78,163 @@ class Client {
   }
 }
 
+//Verification de la validité des données avec une expression réguliète RegExp
+
+const form = document.querySelector("#form");
+
+// --------------------- FIRSTNAME -----------------------------------
+
+//On écoute les modifications du prénom
+form.firstName.addEventListener("change", function () {
+  validFirstName(this);
+});
+
+const validFirstName = function (inputFirstName) {
+  //Création de la RegExp pour validation du prénom
+  let firstNameRegExp = new RegExp(/^([a-zA-Zàâäéèêëïîôöùûüç']+)$/);
+  //On pointe la balise small
+  let small = inputFirstName.nextElementSibling;
+
+  //Teste du RegExp
+
+  if (firstNameRegExp.test(inputFirstName.value)) {
+    small.innerHTML = "Prénom valide";
+    small.classList.remove("text-danger");
+    small.classList.add("text-success");
+    return true;
+  } else {
+    small.innerHTML = "Prénom non valide";
+    small.classList.remove("text-success");
+    small.classList.add("text-danger");
+    return false;
+  }
+};
+
+// --------------------- LASTNAME -----------------------------------
+
+//On écoute les modifications du NOM
+form.lastName.addEventListener("change", function () {
+  validLastName(this);
+});
+
+const validLastName = function (inputLastName) {
+  //Création de la RegExp pour validation du nom
+  let lastNameRegExp = new RegExp(/^([a-zA-Zàâäéèêëïîôöùûüç']+)$/);
+  //On pointe la balise small
+  let small = inputLastName.nextElementSibling;
+
+  //Teste du RegExp
+
+  if (lastNameRegExp.test(inputLastName.value)) {
+    small.innerHTML = "Nom valide";
+    small.classList.remove("text-danger");
+    small.classList.add("text-success");
+    return true;
+  } else {
+    small.innerHTML = "Nom non valide";
+    small.classList.remove("text-success");
+    small.classList.add("text-danger");
+    return false;
+  }
+};
+
+// --------------------- EMAIL -----------------------------------
+
+//On écoute les modifications du prénom
+form.email.addEventListener("change", function () {
+  validEmail(this);
+});
+
+const validEmail = function (inputEmail) {
+  //Création de la RegExp pour validation du prénom
+  let emailRegExp = new RegExp(
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/
+  );
+  //On pointe la balise small
+  let small = inputEmail.nextElementSibling;
+
+  //Teste du RegExp
+
+  if (emailRegExp.test(inputEmail.value)) {
+    small.innerHTML = "Email valide";
+    small.classList.remove("text-danger");
+    small.classList.add("text-success");
+    return true;
+  } else {
+    small.innerHTML = "Email non valide";
+    small.classList.remove("text-success");
+    small.classList.add("text-danger");
+    return false;
+  }
+};
+
+// --------------------- ADDRESS -----------------------------------
+
+//On écoute les modifications de Adresse
+form.address.addEventListener("change", function () {
+  validAddress(this);
+});
+
+const validAddress = function (inputAddress) {
+  //Création de la RegExp pour validation du nom
+  let addressRegExp = new RegExp(
+    /^[0-9]+ [a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+$/
+  );
+  //On pointe la balise small
+  let small = inputAddress.nextElementSibling;
+
+  //Teste du RegExp
+
+  if (addressRegExp.test(inputAddress.value)) {
+    small.innerHTML = "Adresse valide";
+    small.classList.remove("text-danger");
+    small.classList.add("text-success");
+    return true;
+  } else {
+    small.innerHTML = "Adresse non valide";
+    small.classList.remove("text-success");
+    small.classList.add("text-danger");
+    return false;
+  }
+};
+
+// --------------------- Ville -----------------------------------
+
+//On écoute les modifications de la ville
+form.city.addEventListener("change", function () {
+  validCity(this);
+});
+
+const validCity = function (inputCity) {
+  //Création de la RegExp pour validation de la ville
+  let cityRegExp = new RegExp(/^([a-zA-Zàâäéèêëïîôöùûüç']+)$/);
+  //On pointe la balise small
+  let small = inputCity.nextElementSibling;
+
+  //Teste du RegExp
+
+  if (cityRegExp.test(inputCity.value)) {
+    small.innerHTML = "Ville valide";
+    small.classList.remove("text-danger");
+    small.classList.add("text-success");
+    return true;
+  } else {
+    small.innerHTML = "Ville non valide";
+    small.classList.remove("text-success");
+    small.classList.add("text-danger");
+    return false;
+  }
+};
+
+// const sendForm = document.querySelector("#sendForm");}
+
 // On crée l'objet client suite au click sur valider
-const sendForm = document.querySelector("#sendForm");
 
-// firstName = document.querySelector("#firstname");
-// let firstNameRegex = /^[A-Za-z]+$/i;
-// lastName = document.querySelector("#lastname");
-// let lastNameRegex = /^[A-Za-z]+$/i;
-// email = document.querySelector("#email");
-// let emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/i;
-// address = document.querySelector("#address");
-// let addressRegex = /^[0-9]+ [a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+ [a-zA-Z]+$/i;
-// city = document.querySelector("#city");
-// let cityRegex = /^[a-zA-Z',.\s-]+$/i;
-
-sendForm.addEventListener("click", (e) => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
-  localStorage.clear();
+  // localStorage.clear();
 
   //vérification de tous les champs qui sont required
-  if (
-    !document
-      .querySelector("#firstName")
-      .value.match(/^([a-zA-Zàâäéèêëïîôöùûüç' ]+)$/)
-  ) {
-    alert("Le champs prénom contient des erreurs");
-    window.location = "cart.html";
-  }
-  if (
-    !document
-      .querySelector("#lastName")
-      .value.match(/^([a-zA-Zàâäéèêëïîôöùûüç' ]+)$/)
-  ) {
-    alert("Le champs nom contient des erreurs");
-    window.location = "cart.html";
-  }
-  if (
-    !document
-      .querySelector("#address")
-      .value.match(/^([0-9]{1,3}(([,. ]?){1}[a-zA-Zàâäéèêëïîôöùûüç' ]+))$/)
-  ) {
-    alert("Le champs adresse contient des erreurs");
-    window.location = "cart.html";
-  }
-  if (
-    !document
-      .querySelector("#city")
-      .value.match(/^([a-zA-Zàâäéèêëïîôöùûüç' ]+)$/)
-  ) {
-    alert("Le champs ville contient des erreurs");
-    window.location = "cart.html";
-  }
-  if (
-    !document
-      .querySelector("#email")
-      .value.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-  ) {
-    alert("Le champs email contient des erreurs");
-    window.location = "cart.html";
-  }
 
   //Création du client
   e.preventDefault();

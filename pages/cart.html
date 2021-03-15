@@ -102,8 +102,9 @@
           <!--------------------------------- PARTIE FORMULAIRE --------------------------------->
           <div class="col-12 col-lg-6 shadow" id="panierForm">
             <h2 class="ml-2 mt-2 font-weight-bold">Formulaire</h2>
-            <form>
+            <form id="form">
               <div class="form-row">
+                <!-- PRENOM -->
                 <div class="form-group col-md-6">
                   <label for="firstName">Prénom</label>
                   <input
@@ -114,8 +115,10 @@
                     placeholder="Votre prénom"
                     required
                   />
+                  <small></small>
                 </div>
                 <div class="form-group col-md-6">
+                  <!-- NOM -->
                   <label for="lastName">Nom</label>
                   <input
                     type="text"
@@ -125,9 +128,11 @@
                     placeholder="Votre nom"
                     required
                   />
+                  <small></small>
                 </div>
               </div>
               <div class="form-group">
+                <!-- EMAIL -->
                 <label for="email">Email</label>
                 <input
                   type="email"
@@ -137,17 +142,20 @@
                   placeholder="exemple@exemple.com"
                   required
                 />
+                <small></small>
               </div>
               <div class="form-group">
-                <label for="address">Addresse</label>
+                <!-- ADRESSE -->
+                <label for="address">Adresse</label>
                 <input
                   type="text"
                   class="form-control"
                   id="address"
                   name="address"
-                  placeholder="1234 rue de la Paix"
+                  placeholder="123 rue de la Paix"
                   required
                 />
+                <small></small>
               </div>
               <div class="form-row">
                 <!-- <div class="form-group col-md-2">
@@ -170,6 +178,7 @@
                     placeholder="Genève"
                     required
                   />
+                  <small></small>
                 </div>
                 <!-- <div class="form-group col-md-4">
                   <label for="canton">Canton</label>

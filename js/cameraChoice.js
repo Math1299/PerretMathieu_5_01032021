@@ -82,9 +82,9 @@ fetch("http://localhost:3000/api/cameras/" + id)
 
     //Ajout de lensOption
     let lensOption = document.createElement("option");
-    // lensOption.setAttribute("disabled", "disabled");
+    lensOption.setAttribute("disabled", "disabled");
     lensOption.setAttribute("selected", "true");
-    lensOption.setAttribute("value", [camera.lenses]);
+    // lensOption.setAttribute("value", [camera.lenses]);
     lensOption.textContent = "Veuillez selectionner un objectif";
     camOption.appendChild(lensOption);
 
