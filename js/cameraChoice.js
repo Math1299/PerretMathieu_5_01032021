@@ -7,7 +7,8 @@ let option = document.querySelector("#option");
 
 const queryString = window.location.search; //On récupère la chaîne de requête à partir de l'URL
 const urlParams = new URLSearchParams(queryString); //On extrait toute const spécifique
-const id = urlParams.get("id"); //on récupère les id
+const id = urlParams.get("id"); //on récupère l'id sélectionné
+// console.log(id);
 
 fetch("http://localhost:3000/api/cameras/" + id)
   .then((response) => response.json())
@@ -16,18 +17,22 @@ fetch("http://localhost:3000/api/cameras/" + id)
     let camImg = document.createElement("img");
     camImg.classList.add("card-img-top", "rounded", "w-75", "mx-auto", "mt-5");
     camImg.setAttribute("src", camera.imageUrl);
+    camImg.setAttribute("alt", "Appareil photo vintage");
     cameraChoice.appendChild(camImg);
+    // console.log(camImg);
 
     //Création de la div
     let cardBody = document.createElement("div");
     cardBody.classList.add("card-body");
     cameraChoice.appendChild(cardBody);
+    // console.log(cardBody);
 
     //Ajout de camName
     let camName = document.createElement("h2");
     camName.classList.add("card-title");
     camName.innerHTML = camera.name;
     cardBody.appendChild(camName);
+    // console.log(camName);
 
     //Ajout de camPrice
     let camPrice = document.createElement("h4");
@@ -47,6 +52,7 @@ fetch("http://localhost:3000/api/cameras/" + id)
     );
     camDescription.innerHTML = camera.description;
     camPrice.appendChild(camDescription);
+    // console.log(camDescription);
 
     //Ajout form qty
     let formQty = document.createElement("form");
@@ -66,6 +72,7 @@ fetch("http://localhost:3000/api/cameras/" + id)
     secondInput.setAttribute("type", "number");
     secondInput.setAttribute("value", "1");
     labelQty.appendChild(secondInput);
+    // console.log(secondInput.value);
 
     //Ajout de label
     let label = document.createElement("label");
@@ -84,7 +91,6 @@ fetch("http://localhost:3000/api/cameras/" + id)
     let lensOption = document.createElement("option");
     lensOption.setAttribute("disabled", "disabled");
     lensOption.setAttribute("selected", "true");
-    // lensOption.setAttribute("value", [camera.lenses]);
     lensOption.textContent = "Veuillez selectionner un objectif";
     camOption.appendChild(lensOption);
 
@@ -95,8 +101,8 @@ fetch("http://localhost:3000/api/cameras/" + id)
       camOption.appendChild(camLens);
       camLens.setAttribute("value", [camera.lenses[i]]);
       camLens.textContent = camera.lenses[i];
+      // console.log(camLens);
     }
-
     //Ajout du btn ajouter au panier
     let btnAddToCart = document.createElement("a");
     btnAddToCart.classList.add(
