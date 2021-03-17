@@ -17,7 +17,7 @@ fetch("http://localhost:3000/api/cameras/" + id)
 
     //Insertion de camImg
     let camImg = document.createElement("img");
-    camImg.classList.add("card-img-top", "rounded", "w-75", "mx-auto", "mt-5");
+    camImg.classList.add("card-img-top", "rounded", "w-75", "mx-auto", "mt-4");
     camImg.setAttribute("src", camera.imageUrl);
     camImg.setAttribute("alt", "Appareil photo vintage");
     cameraChoice.appendChild(camImg);
