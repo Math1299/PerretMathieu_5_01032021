@@ -1,6 +1,6 @@
 //Tableau vide afin de récupérer les données
 let pdId = [];
-
+// console.log(pdId);
 //Compteur du nombre de produits dans la panier
 let nb = 1;
 
@@ -63,7 +63,7 @@ del.addEventListener("click", (e) => {
 
   document.location.reload();
 });
-console.log(camToCart);
+// console.log(camToCart);
 
 // -------------------------FORMULAIRE-----------------------------------
 
@@ -77,7 +77,6 @@ class Client {
       (this.city = city);
   }
 }
-
 //Verification de la validité des données avec une expression réguliète RegExp
 
 const form = document.querySelector("#form");
@@ -226,18 +225,15 @@ const validCity = function (inputCity) {
   }
 };
 
-// const sendForm = document.querySelector("#sendForm");}
-
 // On crée l'objet client suite au click sur valider
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  // localStorage.clear();
 
   //vérification de tous les champs qui sont required
 
   //Création du client
-  e.preventDefault();
+
   let newOrder = new Client(
     document.querySelector("#firstName").value,
     document.querySelector("#lastName").value,
@@ -245,7 +241,7 @@ form.addEventListener("submit", (e) => {
     document.querySelector("#address").value,
     document.querySelector("#city").value
   );
-  //Création de l'objet résultat
+  //Création de l'objet data contenant contact et products
   let data = {
     contact: {
       firstName: newOrder.firstName,
@@ -257,7 +253,7 @@ form.addEventListener("submit", (e) => {
     products: pdId,
   };
 
-  //Appel de fecth contenant la commande
+  //Appel fetch contenant la commande
   fetch("http://localhost:3000/api/cameras/order", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -266,7 +262,7 @@ form.addEventListener("submit", (e) => {
     //Réponse du serveur
     .then((response) => response.json())
     .then((response) => {
-      localStorage.clear();
+      localStorage.clear(); //pour ne pas polluer l'affichage de la confirmation doublon
       let objOrder = {
         idOrder: response.orderId,
         price: totalPrice,
@@ -274,5 +270,7 @@ form.addEventListener("submit", (e) => {
       let order = JSON.stringify(objOrder);
       localStorage.setItem("order", order);
       window.location = "confirmation.html";
-    });
+    })
+    .catch((err) => console.log(err));
+  // console.log(JSON.stringify(data));
 });

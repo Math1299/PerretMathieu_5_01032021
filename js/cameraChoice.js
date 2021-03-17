@@ -13,6 +13,8 @@ const id = urlParams.get("id"); //on récupère l'id sélectionné
 fetch("http://localhost:3000/api/cameras/" + id)
   .then((response) => response.json())
   .then((camera) => {
+    // console.log(camera);
+
     //Insertion de camImg
     let camImg = document.createElement("img");
     camImg.classList.add("card-img-top", "rounded", "w-75", "mx-auto", "mt-5");
@@ -39,6 +41,7 @@ fetch("http://localhost:3000/api/cameras/" + id)
     camPrice.classList.add("card-subtitle", "my-1");
     camPrice.innerHTML = `${camera.price / 100} CHF`;
     camName.appendChild(camPrice);
+    // console.log(typeof camPrice);
 
     //Ajout de camDesctiption
     let camDescription = document.createElement("p");
@@ -65,7 +68,7 @@ fetch("http://localhost:3000/api/cameras/" + id)
     labelQty.innerHTML = "Quantité : ";
     formQty.appendChild(labelQty);
 
-    //Ajout du 1er input Qty
+    //Ajout du input Qty
     let secondInput = document.createElement("input");
     secondInput.classList.add("qty", "w-25", "ml-2", "text-center");
     secondInput.setAttribute("id", "result");
@@ -137,7 +140,7 @@ fetch("http://localhost:3000/api/cameras/" + id)
           lens: lensChoice,
           qty: result,
         };
-        let camToCart = JSON.stringify(intoCart); //stringify obj JS vers le format Json
+        let camToCart = JSON.stringify(intoCart); //stringify obj JS vers le format Jsons
         localStorage.setItem(camera._id, camToCart);
         alert("Ajouté au panier");
       }

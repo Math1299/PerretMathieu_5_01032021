@@ -16,5 +16,6 @@ for (let k = 0; k < order.length; k++) {
   priceOrder.classList.add("m-3");
   priceOrder.innerHTML = `Prix total : ${confOrder.price} CHF`;
   confirmation.appendChild(priceOrder);
+  // console.log(order);
 }
 localStorage.clear();
