@@ -90,7 +90,7 @@ form.firstName.addEventListener("change", function () {
 
 const validFirstName = function (inputFirstName) {
     //Création de la RegExp pour validation du prénom
-    let firstNameRegExp = new RegExp(/^([a-zA-Zàâäéèêëïîôöùûüç']+)$/);
+    let firstNameRegExp = new RegExp(/^([a-zA-Zàâäéèêëïîôöùûüç' -]+)$/);
     //On pointe la balise small
     let small = inputFirstName.nextElementSibling;
 
@@ -118,7 +118,7 @@ form.lastName.addEventListener("change", function () {
 
 const validLastName = function (inputLastName) {
     //Création de la RegExp pour validation du nom
-    let lastNameRegExp = new RegExp(/^([a-zA-Zàâäéèêëïîôöùûüç']+)$/);
+    let lastNameRegExp = new RegExp(/^([a-zA-Zàâäéèêëïîôöùûüç' -]+)$/);
     //On pointe la balise small
     let small = inputLastName.nextElementSibling;
 
